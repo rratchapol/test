@@ -1,0 +1,37 @@
+<form [formGroup]="Form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" >
+
+  <!-- User Form -->
+  <div formArrayName="users" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div *ngFor="let user of users().controls; let usersIndex=index">
+      <div [formGroupName]="usersIndex" >
+        First Name :<input class="bg-white shadow-md rounded px-4 py-2" type="text" formControlName="firstName" />
+        Last Name: <input class="bg-white shadow-md rounded px-4 py-2" type="text" formControlName="lastName" />
+        Phone: <input class="bg-white shadow-md rounded px-4 py-2" type="text" formControlName="phone" />
+        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" (click)="removeUser(usersIndex)">Remove</button><p></p>
+        
+       <!-- Talent Form -->
+      <div formArrayName="talents" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div *ngFor="let talent of userTalents(usersIndex).controls; let talentIndex=index">
+          <div [formGroupName]="talentIndex">
+            Talent :<input type="text" formControlName="talent" />
+            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" (click)="removeUserTalent(usersIndex,talentIndex)">Remove</button>
+            
+            <!-- Detail Form -->
+            <div formArrayName="details" class="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+              <div *ngFor="let detail of userDetails(usersIndex, talentIndex).controls; let detailIndex=index">
+                Detail :<input type="text" formControlName="detail" />
+                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" (click)="removeUserDetail(usersIndex,talentIndex, detailIndex)">Remove</button>
+              </div>
+            </div>
+            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" (click)="addUserDetail(usersIndex, talentIndex)">Add Detail</button>
+   
+          </div>
+        </div>
+      </div>
+      <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" (click)="addUserTalent(usersIndex)">Add Talent</button>
+
+      </div><p></p>
+    </div>
+    <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" (click)="addUser()">Add User</button>
+  </div><p></p>
+</form>
